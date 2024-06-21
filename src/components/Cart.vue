@@ -16,7 +16,7 @@
         >
           <td>{{ item.T }}</td>
           <td>{{ item.inCart }}</td>
-          <td>{{ item.convertedPrice * item.inCart }}</td>
+          <td>{{ priceByCount(item) }}</td>
           <td>
             <ActionButton
               text="Delete"
@@ -32,7 +32,7 @@
           <td>Итого</td>
           <td></td>
           <td></td>
-          <td>{{ totalPrice }}</td>
+          <td>{{ totalPrice.toFixed(2) }}</td>
         </tr>
       </tbody>
     </table>
@@ -50,9 +50,13 @@ const cartStore = useCartStore();
 const { removeSelectedItem } = cartStore;
 const { selectedItems } = storeToRefs(cartStore);
 
+const priceByCount = (item: ShopItem) => {
+  return Number((item.convertedPrice * item.inCart).toFixed(2));
+};
+
 const totalPrice = computed(() => {
   return selectedItems.value.reduce((acc: number, item: ShopItem) => {
-    return acc + Number(item.convertedPrice * item.inCart);
+    return acc + priceByCount(item);
   }, 0);
 });
 
