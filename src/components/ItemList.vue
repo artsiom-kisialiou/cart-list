@@ -106,7 +106,6 @@ const findAndMergeItemName = (
   itemsIds: Array<{ N: string; T: number }>,
   item: ShopItem
 ) => {
-  console.log(itemsIds);
   return Object.keys(itemsIds).forEach((id: string) => {
     const itemId = itemsIds[<any>id].N;
     item.T == id ? (item.T = itemId) : null;
