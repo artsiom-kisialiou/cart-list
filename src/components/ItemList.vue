@@ -46,8 +46,8 @@
 import data from "./../data.json";
 import names from "./../names.json";
 
-import ActionButton from "../shared/ActionButton.vue";
-import CollapsableAccordion from "../shared/CollapsableAccordion.vue";
+import ActionButton from "./../shared/ActionButton.vue";
+import CollapsableAccordion from "./../shared/CollapsableAccordion.vue";
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import { useCartStore } from "../store/cart";
 import { storeToRefs } from "pinia";
@@ -59,7 +59,7 @@ const { items, selectedItems } = storeToRefs(cartStore);
 
 const categories = ref<string[]>([]);
 const currencyRate = ref<number>(50);
-const checkInterval = ref(null);
+const checkInterval = ref(0);
 const updatedPrice = ref<boolean>(false);
 const itemNames = JSON.parse(JSON.stringify(names));
 
@@ -102,16 +102,20 @@ const findAndMergeGroupName = (item: ShopItem) => {
   });
 };
 
-const findAndMergeItemName = (itemsIds: Array<string>, item: ShopItem) => {
+const findAndMergeItemName = (
+  itemsIds: Array<{ N: string; T: number }>,
+  item: ShopItem
+) => {
+  console.log(itemsIds);
   return Object.keys(itemsIds).forEach((id: string) => {
-    const itemId = itemsIds[id].N;
+    const itemId = itemsIds[<any>id].N;
     item.T == id ? (item.T = itemId) : null;
   });
 };
 
 const updateCosts = () => {
   currencyRate.value = Math.floor(Math.random() * 61) + 20;
-  items.value.forEach((item) => {
+  items.value.forEach((item: ShopItem) => {
     item.convertedPrice = Number((item.C * currencyRate.value).toFixed(2));
   });
 };

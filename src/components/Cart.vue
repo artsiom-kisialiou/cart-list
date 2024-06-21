@@ -40,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import ActionButton from "../shared/ActionButton.vue";
-import { useCartStore } from "../store/cart";
+import ActionButton from "./../shared/ActionButton.vue";
+import { useCartStore } from "./../store/cart";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
 import type { ShopItem } from "../types";
