@@ -34,7 +34,7 @@ const buttonClass = computed(() => {
 <style scoped>
 button {
   padding: 5px 10px;
-  font-weight: 500;
+  /* font-weight: 500; */
 }
 
 .primary {
